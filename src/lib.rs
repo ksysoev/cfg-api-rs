@@ -19,7 +19,7 @@ impl CfgServer {
     pub async fn run(&self) -> std::io::Result<()> {
         info!("Starting server on {}:{}", self.host, self.port);
 
-        HttpServer::new(|| App::new().service(app::health_check))
+        HttpServer::new(|| App::new().service(app::health_check).service(app::config))
             .bind((self.host.as_str(), self.port))?
             .run()
             .await
